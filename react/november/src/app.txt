@@ -1,0 +1,953 @@
+import React from 'react'
+import Header from "./components/Header"
+import Contact from './components/Contact'
+var fName = "Adfar Rasheed"
+function App() {
+  return (
+    <div>
+      <h1>my name is {fName}</h1>
+      <Header/>
+      <Contact/>
+      <Contact/>
+    </div>
+  )
+}
+
+
+export default App
+
+
+//themechanger
+import React, { useState } from 'react'
+
+export default function ThemeChange() {
+    // const [color,setColor] = useState("white");
+    // const [text,setText] = useState("DARK");
+    const [condition,setCondition] = useState(true)
+    function handleColor(){
+        setCondition(!condition)
+        // if(condition===true){
+        //     setCondition(false)
+        // } else{
+        //     setCondition(true)
+        // }
+    //    if(color === "white"){
+    //     setColor("black")
+    //     setText("LIGHT")
+    //    } else{
+    //     setColor("white")
+    //     setText("DARK")
+    //    }
+    }
+  return (
+    <div style={{width:"100vw",backgroundColor:condition?"white":"black",height:"70vh",border:"2px solid red"}}>
+      <button onClick={handleColor}>{condition ? "DARK" : "LIGHT"}</button>
+
+    </div>
+  )
+}
+
+
+//conditional rendering 
+import React, { useState } from 'react'
+import Condiotion from './components/Condiotion';
+
+export default function App() {
+  const [count,setCount] = useState(0);
+  const allow =true;
+  function handleIncrement(){
+    setCount(count + 1);
+  }
+  return (
+    <div>
+      <h1>{count}</h1>
+      {allow?<h1>True hain</h1>:<h1>False hain</h1>}
+      {!allow? <Condiotion/>:""}
+      {allow && <h1>Newton school</h1>}
+      <button onClick={handleIncrement}>Add one</button>
+    </div>
+  )
+}
+
+//state depending on previous stateimport React, { useState } from 'react'
+
+export default function App() {
+  const [count,setCount] =useState(0)
+  function handleIncrement(){
+    // setCount(count+1);
+    // setCount(count+1);
+    // setCount(count+1);
+    // setCount(count+1);
+    // setCount((prev)=>prev+1)
+    // setCount((prev)=>prev+1)
+    // setCount((prev)=>prev+1)
+    // setCount((prev)=>prev+1)
+    setCount(count+1)
+    setCount((prev)=>prev+1)
+    setCount(count+1)
+  }
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={handleIncrement}>Add one</button>
+    </div>
+  )
+}
+
+//List rendering
+
+import React, { useState } from 'react'
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  function handleIncrement(){
+    setCount(count+1);
+  }
+  var data = ["HTML","CSS","JS","React","HTML","CSS","JS","React"]
+  return (
+    <div>
+      <ul>
+        {data.map((item,index)=>{
+          return <li key={index}>{item}</li>
+        })}
+      </ul>
+      <h1>Hello World!</h1>
+      <h1>{count}</h1>
+      <button onClick={handleIncrement}>increment</button>
+    </div>
+  )
+}
+
+
+//props
+import React from 'react'
+
+export default function App() {
+  var fName = "Adfarrrr"
+  return (
+    <div>
+      <h1 >App Parent</h1>
+      <Children firstName={fName} salary="Rs4000" skill = {[1,2,3,4]} age = {34}/>
+      {/* <Children firstName="Ankit" salary="Rs2000" age={44} /> */}
+    </div>
+  )
+}
+function Children(props){
+  console.log("props: " ,props)
+  return (
+    <div>
+      {props.skill.map((item,index)=>{
+        return <h1 key={index}>{item}</h1>
+      })}
+      <h1>Children </h1>
+      {/* <p>My First Name is {props.firstName}, my age is {props.age}, and my salary is {props.salary}</p> */}
+      <Grandchildren fName={props.firstName} sal={props.salary} umar={props.age}/>
+    </div>
+  )
+}
+function Grandchildren(props){
+  console.log("p",props)
+  return (
+    <div>
+      <mark>{props.fName} {props.sal} {props.umar}</mark>
+      <h1>Grand Children</h1>
+    </div>
+  )
+}
+
+//Children
+import React from 'react'
+
+export default function Component({children}) {
+  return (
+    <div>
+        {children}
+        <h1>Hello component</h1>
+        {children}
+        
+    </div>
+  )
+}
+
+
+//conditional rendering
+import React, { useState } from 'react'
+import "./App.css"
+export default function App() {
+  const [allow,setAllow] = useState(false)
+  const [clas,setClas] = useState("main") 
+ 
+  return (
+    <>
+     {!allow? <Comp1/>:<Comp2/>}
+     {/* {allow && (
+      <Comp1/>
+     )} */}
+     <button onClick={()=>setAllow(!allow)}>Show</button>
+     <div className={clas}>
+      <h1>hello</h1>
+      <button onClick={()=>setClas("container")}>container</button>
+      <button onClick={()=>setClas("main")}>main</button>
+     </div>
+    </>
+  )
+}
+function Comp1(){
+  return (
+    <>
+     <h1>Component1</h1>
+    </>
+  )
+}
+function Comp2(){
+  return (
+    <>
+     <h1>Component2</h1></>
+  )
+}
+
+/controlled component 
+import React, { useState } from 'react'
+
+export default function App() {
+  const [firstName,setFirstName] = useState("");
+  const [allow,setAllow] = useState(false)
+  const [email,setEmail]= useState("")
+  console.log(firstName)
+  function handleSubmit(e){
+    e.preventDefault()
+     setAllow(true)
+  }
+  return (
+    <div>
+      <h1>React Controlled Forms</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder='enter Name'
+        value={firstName} 
+        onChange={(e)=>setFirstName(e.target.value)}/><br /><br />
+        <input type="email" placeholder='enter Email'
+        value={email}/> <br /> <br />
+         
+        <input type="submit" value="Submit" />
+        <button onClick={()=>setFirstName("hello")}>hello</button>
+      </form>
+      {allow && <h1>hello {firstName}</h1>}
+    </div>
+  )
+}
+
+
+//Forms
+import React, { useState } from 'react'
+
+export default function App() {
+  const [allow,setAllow] = useState(false)
+  const [input,setInput] = useState({
+    name: '',
+    age:'',
+    email: '',
+  })
+  function handleSubmit(e){
+     e.preventDefault()
+     setAllow(true)
+  }
+  return (
+    <div>
+      <h1>State Management</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder='name' 
+        value={input.name} 
+        onChange={(e)=>setInput((prev)=>({...prev,name:e.target.value}))}
+        />
+        <br />
+        <input type="text" placeholder='age' 
+         value={input.age} 
+         onChange={(e)=>setInput((prev)=>({...prev,age:e.target.value}))}
+        /><br />
+        <input type="text" placeholder='email' 
+         value={input.email}
+         onChange={(e)=>setInput((prev)=>({...prev,email:e.target.value}))}
+        /><br />
+        <input type="submit" value="Login" />
+      </form>
+      {allow ? (
+        <>
+         <h1>{input.name}</h1>
+         <h1>{input.age}</h1>
+         <h1>{input.email}</h1>
+        </>
+      ):""}
+    </div>
+  )
+}
+
+
+//useEffect 
+import React, { useEffect, useState } from 'react'
+
+export default function App() {
+  
+  const [count,setCount] = useState(0)
+  const [number,setNumber] = useState(100)
+  const [number1,setNumber1] = useState(1000)
+  useEffect(()=>{
+    console.log("useEffect")
+    // const fun =()=>{
+    //   console.log("adfar")
+    // }
+    // document.addEventListener("click",fun)
+    // return ()=>{
+    //   document.removeEventListener("click",fun)
+    // }
+   let interval =  setInterval(()=>{
+    console.log("Adfar")
+  },3000)
+  return ()=>{
+    clearInterval(interval)
+  }
+  })
+  return (
+    <div>
+       <h1>count: {count}</h1>
+       <button onClick={()=>setCount(count+1)}>Increment</button>
+       <h1>Number: {number}</h1>
+       <button onClick={()=>setNumber(number-1)}>Decrement</button>
+       <h1>Number1: {number1}</h1>
+       <button onClick={()=>setNumber1(number1+10)}>Decrement</button>
+    </div>
+  )
+}
+
+
+//useEffect 
+import React, { useEffect, useState } from 'react'
+import Item1 from './components/Item1'
+
+export default function App() {
+  const [condition,setCoondition] = useState(true)
+  const [number,setNumber] = useState(100)
+  const [count,setCount] = useState(0)
+  useEffect(()=>{
+    const interval = setInterval(()=>{
+      setCount(count+1)
+    },1000)
+    return ()=>{
+      clearInterval(interval)
+    }
+  },[count])
+  return (
+    <div>
+      <button onClick={()=>setCoondition(!condition)}>Click</button>
+      <h1>Adfar Rasheed</h1>
+      <h1>Count: {count}</h1>
+      <button onClick={()=>setCount(count+1)}>ADD</button>
+      <h1>number: {number}</h1>
+      <button onClick={()=>setNumber(number+10)}>Change Number</button>
+      {condition && <Item1/>}
+    </div>
+  )
+}
+//useEffect(()=>{
+  //  console.log("Adfar")
+})
+
+//ai fetching using .then .catch 
+
+import React, { useState } from 'react'
+
+export default function App() {
+  const [joke,setJoke]=useState({})
+  function handleJoke(){
+   var data= fetch('https://api.chucknorris.io/jokes/random')
+   console.log(data)
+   data.then((result)=>{
+    return result.json()
+   }).then((res)=>{
+    setJoke(res)
+   }).catch((err)=>{
+     console.log(err)
+   })
+  }
+  return (
+    <div>
+       <h1>{joke.value}</h1>
+       <img src={joke.icon_url} alt="" />
+      <button onClick={handleJoke}>generateJoke</button>
+    </div>
+  )
+}
+
+
+//pokemon app.js code 
+import React, { useEffect, useState } from 'react'
+import "./App.css"
+import PokeThumbnail from './PokeThumbnail'
+export default function App() {
+  const [allPokemons,setAllPokemons] = useState([])
+  const [loadMore,setLoadMore] = useState({})
+  useEffect(()=>{
+     getAllPokemons()
+  },[])
+  const getAllPokemons =async()=>{
+    const res =await fetch("https://content.newtonschool.co/v1/pr/64ccef982071a9ad01d36ff6/pokemonspages1")
+    const data =await res.json()
+    
+    setLoadMore(data[0].next)
+    
+    function createPokeMonObject(result){
+      result.forEach(async (pokemon)=>{
+           const res =await fetch(pokemon.url);
+           const dataa =await res.json();
+           setAllPokemons(prev=>([...prev, dataa]))
+           
+      })
+    }
+    createPokeMonObject(data[0].results)
+ 
+  }
+  async function getMoreData(){
+    const res =await fetch(loadMore);
+    const data =await res.json();
+    setLoadMore(data[0].next)
+    
+    function createPokeMonObject(result){
+      result.forEach(async (pokemon)=>{
+         
+           const res =await fetch(pokemon.url);
+           const dataa =await res.json();
+           setAllPokemons(prev=>([...prev, dataa]))
+           
+      })
+    }
+    createPokeMonObject(data[0].results)
+    
+  }
+  return (
+    <div id='parent'>
+      <div id='section'>
+        <div className="content">
+            <h2>Pokemon</h2>
+            <h2>Pokemon</h2>
+        </div>
+        <div className="content2">
+            <h2>Kingdom</h2>
+            <h2>Kingdom</h2>
+        </div>
+      </div>
+      <div className="app-container">
+        <div className="pokemon-container">
+            <div className="all-container">
+              {allPokemons.map((pokemon,index)=>{
+                console.log(pokemon)
+                return  <PokeThumbnail
+             
+                key={index}
+                id={pokemon[0].id}
+                name={pokemon[0].name}
+                image={pokemon[0].image}
+                type={pokemon[0].type}
+                height={pokemon[0].height}
+                weight={pokemon[0].weight}
+                stat1={pokemon[0].stats[0].stat.name}
+                stat2={pokemon[0].stats[1].stat.name}
+                stat3={pokemon[0].stats[2].stat.name}
+                stat4={pokemon[0].stats[3].stat.name}
+                stat5={pokemon[0].stats[4].stat.name}
+                stat6={pokemon[0].stats[5].stat.name}
+                bs1={pokemon[0].stats[0].base_stat}
+                bs2={pokemon[0].stats[1].base_stat}
+                bs3={pokemon[0].stats[2].base_stat}
+                bs4={pokemon[0].stats[3].base_stat}
+                bs5={pokemon[0].stats[4].base_stat}
+                bs6={pokemon[0].stats[5].base_stat}
+                />
+              }
+             )}
+            </div>
+            <button className='load-more' onClick={()=>getMoreData()}>More Pokemons</button>
+        </div>
+      </div>
+
+    </div>
+  )
+}
+
+//class based
+import { Component } from "react"
+import Count from "./components/classcomponents/Count"
+
+class App extends Component{
+  render(){
+    return <>
+      <h1>Adfar Rasheedd</h1>
+      <Count name="Hello" age={45}/>
+    </>
+  }
+}
+export default App
+
+
+
+//router 
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './components/routes/Home'
+import About from './components/routes/About'
+import Contact from './components/routes/Contact'
+import Users from './components/routes/Users'
+import Blogs from './components/routes/Blogs'
+import Userdetails from './components/routes/Userdetails'
+import Phone from './components/routes/Phone'
+import Cshop from './components/routes/Cshop'
+import Cblog from './components/routes/Cblog'
+import MainHome from './components/routes/MainHome'
+
+
+export default function App() {
+
+  return (
+    <>
+   
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<MainHome/>}>
+              <Route index element={<Home/>}/>
+              <Route path='/about' element={<About/>}/>
+              <Route path='/contact' element={<Contact/>}>
+                   <Route path='blog' element={<Cblog/>}/>
+                   <Route path='shop' element={<Cshop/>}/>
+              </Route>
+              <Route path='/users' element={<Users/>}/>
+              <Route path='/users/:id' element={<Userdetails/>}/>
+              <Route path='/users/:id/contact/:phone' element={<Phone/>}/>
+              <Route path='/blogs' element={<Blogs/>}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </>
+  )
+}
+//context api 
+import React, { createContext } from 'react'
+import Comp1 from './components/contextapi/Comp1'
+const fName = createContext()
+const lName = createContext()
+export default function App() {
+  return (
+    <div>
+      <fName.Provider value="Adfar Rasheed">
+        <lName.Provider value="Dar">
+          <Comp1 />
+        </lName.Provider>
+      </fName.Provider>
+    </div>
+  )
+}
+export {fName,lName}
+
+
+//themtoggle context 
+
+//useReducer
+
+import { useReducer } from "react"
+import React from 'react'
+const reducer =(state,action)=>{
+  console.log("state:", state)
+  console.log("action:", action)
+  if(action === "addone"){
+    return state+1
+  } else if(action === "minusone"){
+    return state-1
+  } else if(action === "addten"){
+    return state+10
+  } else if(action === "minusten"){
+    return state-10
+  } else {
+    return state
+  }
+ 
+}
+const colorReducer =(state,action)=>{
+  switch(action.type){
+    case "red":
+      return {bgColor:action.payload}
+    case "blue":
+      return {bgColor:action.payload}
+    case "green":
+      return {bgColor:action.payload}
+    case "aqua":
+      return {bgColor:action.payload}
+    case "pink":
+      return {bgColor:action.payload}
+    default:
+      return state
+  }
+}
+export default function App() {
+  // const [count,setCount] = useState(0)
+  const [state,dispatch] = useReducer(reducer,0)
+  const [state1,dispatch1] = useReducer(colorReducer,{bgColor:"yellow"})
+  const [state2,dispatch2] = useReducer(reducer,{
+    count:0,
+    bgColor:"red",
+    number:100,
+    color:"white",
+    condition:true
+  })
+
+  return (
+    <div style={{backgroundColor:state1.bgColor}}>
+      <button onClick={()=>dispatch1({type:"red",payload:"red"})}>Red</button>
+      <button onClick={()=>dispatch1({type:"blue",payload:"blue"})}>Blue</button>
+      <button onClick={()=>dispatch1({type:"green",payload:"green"})}>Green</button>
+      <button onClick={()=>dispatch1({type:"aqua",payload:"aqua"})}>Aqua</button>
+      <button onClick={()=>dispatch1({type:"pink",payload:"pink"})}>Pink</button>
+      <h1>count:{state}</h1>
+      <button onClick={()=>dispatch("addone")}>+1</button>
+      <button onClick={()=>dispatch("minusone")}>-1</button>
+      <button onClick={()=>dispatch("addten")}>+10</button>
+      <button onClick={()=>dispatch("minusten")}>-10</button>
+    </div>
+  )
+}
+
+
+import React from 'react'
+import Modal from './Modal'
+
+
+export default function App() {
+  const [isOpen, setIsOpen] = React.useState(false)
+  return (
+    <div>
+      <h1>This is a Portal example</h1>
+      <button onClick={()=>setIsOpen(true)}>Done</button>
+      <Modal condition={isOpen}>
+        <h1>Hello World</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam mollitia dolorum non eveniet, ducimus tempore voluptatum animi. Ducimus, ullam possimus.</p>
+        <button>OK</button>
+      </Modal>
+    </div>
+  )
+}
+
+
+//pomodoro 
+import React, { useEffect, useState } from 'react'
+
+export default function App() {
+    const [workDuration,setWorkduration] = useState(25)
+    const [breakDuration,setBreakduration] = useState(5)
+    const [worksecond,setWorksecond] = useState(5)
+    const [breaksecond,setBreaksecond] = useState(3)
+    const [type,setType]= useState("Work")
+    const [flag,setFlag] = useState(false)
+    const [resetFlag,setResetFlag] = useState(true)
+    useEffect(()=>{
+         if(flag && type==="Work"){
+            if(worksecond>0){
+                setTimeout(()=>{
+                    setWorksecond(worksecond-1)
+                },1000)
+            }
+            if(worksecond === 0){
+                alert('work duration completed')
+                setType("Break")
+                setWorksecond(1500)
+            }
+         }
+         if(flag && type==="Break"){
+            if(breaksecond>0){
+                setTimeout(()=>{
+                    setBreaksecond(breaksecond-1)
+                },1000)
+            }
+            if(breaksecond===0){
+                alert('break duration completed')
+                setType("Work")
+                setBreaksecond(300)
+            }
+         }
+
+    },[type,worksecond,flag,breaksecond])
+    function handleSubmit(e){
+       e.preventDefault()
+       setWorksecond(workDuration*60)
+       setBreaksecond(breakDuration*60)
+       setType("Work")
+       setFlag(false)
+    }
+    const convertor=(sec)=>{
+       let m = parseInt(sec/60).toString()
+       let s = parseInt(sec%60).toString()
+       if(m.length === 1) m="0"+m;
+       if(s.length === 1) s="0"+s;
+       return m+":"+s
+    }
+    function handleReset(){
+        setResetFlag(true)
+        setBreaksecond(300)
+        setWorksecond(1500)
+        setFlag(false)
+        setType("Work")
+        setBreakduration(5)
+        setWorkduration(25)
+    }
+  return (
+    <div>
+        <div>
+            <h1>{type==="Work"?convertor(worksecond):convertor(breaksecond)}</h1>
+            <h1>{type==="Work"?"Work":"Break"}-Time</h1>
+        </div>
+        <div>
+            <button onClick={()=>{
+                setFlag(true);
+                setResetFlag(false)
+            }} disabled={flag}>Start</button>
+            <button onClick={()=>{
+                setFlag(false);
+                setResetFlag(false)
+            }} disabled={!flag}>Stop</button>
+            <button disabled={resetFlag} onClick={handleReset}>Reset</button>
+        </div> <br /><br />
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type="number" placeholder='Work Duration'
+                value={workDuration} onChange={(e)=>setWorkduration(e.target.value)}/>
+                <input type="number" placeholder='Break Duration'
+                value={breakDuration} onChange={(e)=>setBreakduration(e.target.value)}/>
+                <input type="submit" value="Set" />
+            </form>
+        </div>
+    </div>
+
+  )
+}
+
+
+//useMemo simple example 
+import React, { useMemo, useState } from 'react'
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  const [number,setNumber] = useState(100)
+  const isEven = useMemo(()=>{
+    let i=0;
+    while(i<2000000000) i++;
+    return count%2===0
+  },[count])
+  return (
+    <div>
+        <h1>Count:{count}</h1>
+        <button onClick={()=>setCount(count+1)}>+count</button>
+         <h1>{isEven?"EVEN":"ODD"}</h1>
+        <h1>Number:{number}</h1>
+        <button onClick={()=>setNumber(number-1)}>-Number</button>
+    </div>
+  )
+}
+
+
+usememo todo 
+
+import React, { useState } from 'react'
+import TodoList from './components/Efficiency/TodoList'
+import { createTodos } from './components/Efficiency/utilities'
+const todos = createTodos()
+export default function App() {
+  const [tab,setTab] = useState('all')
+  const [isDark,setIsDark] = useState(false)
+  return (
+    <div>
+      <button onClick={()=>setTab('all')}>All</button>
+      <button onClick={()=>setTab('active')}>Active</button>
+      <button onClick={()=>setTab('completed')}>Completed</button>
+      <br />
+      <br />
+      <label>
+        <input type="checkbox" 
+        checked={isDark}
+        onChange={(e)=>setIsDark(e.target.checked)}/>
+        Dark Mode
+      </label>
+      <TodoList 
+      todos={todos}
+      tab={tab}
+      theme={isDark?'dark':'light'}
+      />
+    </div>
+  )
+}
+
+//useCallback 
+
+import React, { useCallback, useState } from 'react'
+const x = new Set()
+export default function App() {
+  const [count,setCount]  = useState(0)
+  const [number,setNumber] = useState(10)
+  const incrementCount=useCallback(()=>{
+    setCount(count+1)
+  },[count])
+  const decrementCount=useCallback(()=>{
+    setCount(count-1)
+  },[count])
+  const incrementNumber=useCallback(()=>{
+    setNumber(number+1)
+  },[number])
+  const decrementNumber=useCallback(()=>{
+    setNumber(number-1)
+  },[number])
+  x.add(incrementCount)
+  x.add(decrementCount)
+  x.add(incrementNumber)
+  x.add(decrementNumber)
+  alert(x.size)
+  return (
+    <div>
+      <h1>Count:{count}</h1>
+      <button onClick={incrementCount}>+count</button>
+      <button onClick={decrementCount}>-count</button>
+      <h1>number:{number}</h1>
+      <button onClick={incrementNumber}>+NUmber</button>
+      <button onClick={decrementNumber}>-Number</button>
+    </div>
+  )
+}
+
+//localstorage
+import React, { useState } from 'react'
+
+export default function App() {
+  const [email,setEmail] = useState("")
+  const [password,setPasswor] = useState("")
+  const [data,setData] = useState("")
+  function handleSubmit(e){
+       e.preventDefault()
+       const user ={email,password}
+       localStorage.setItem("user",JSON.stringify(user))
+      // //  localStorage.setItem("user",JSON.stringify({email,password}))
+      //  localStorage.setItem("email",email);
+      //  localStorage.setItem("password",password)
+  }
+  function getData(){
+    const data = JSON.parse(localStorage.getItem("user"));
+    setData(data)
+  }
+  function handleRemove(){
+    // localStorage.removeItem("user")
+    localStorage.clear()
+  }
+  console.log(data)
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="email" placeholder='Enter Email' 
+        value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <input type="password" placeholder="Enter Passord" 
+        value={password} onChange={(e)=>setPasswor(e.target.value)}/>
+        <button type="submit">Save</button>
+      </form>
+      <button onClick={getData}>Get Data</button>
+      <h1>{data.email} {data.password}</h1>
+      <button onClick={handleRemove}>Remove</button>
+    </div>
+  )
+}
+
+
+import React from 'react'
+import { BrowserRouter, Routes,Route, useNavigate, Navigate } from 'react-router-dom'
+import Signup from './components/authenticatiion/Signup'
+import Login from './components/authenticatiion/Login'
+import Dashboard from './components/authenticatiion/Dashboard'
+
+export default function App() {
+  const isAuthenticated = localStorage.getItem("isAuthenticated")
+  return (
+    <div>
+     <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<Signup/>} />
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/dashboard' element={isAuthenticated?<Dashboard/>:<Navigate to="/login"/>}/>
+        <Route path="/" element={<Navigate to="/signup"/>}/>     
+        </Routes>
+     </BrowserRouter>
+    </div>
+  )
+}
+
+
+//errorboundary import React, { useState } from 'react'
+import ErrorBoundary from './components/Efficiency/ErrorBoundary/ErrorBoundary'
+import Counterrrr from './components/Efficiency/ErrorBoundary/Counterrrr'
+import Counter from './components/CustomHoooks/Counter'
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  return (
+    <div>
+      <h1>Adfar Sahab</h1> <h1>Adfar Sahab</h1>
+      <h1>App counter: {count}</h1>
+      <button onClick={()=>setCount(count+1)}>App Incrementer</button>
+      <Counter/>
+      <ErrorBoundary>
+        <Counterrrr/>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Counterrrr/>
+        <Counter/>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Counterrrr/>
+        <Counter/>
+      </ErrorBoundary>
+    </div>
+  )
+}
+
+
+//redux 
+import React from 'react'
+import Countt from './Countt'
+import { useDispatch, useSelector } from 'react-redux'
+import {setBgColor} from "./components/ReduxStore/actions"
+import TodoRedux from './TodoRedux'
+export default function App() {
+  const color = useSelector((state)=>state.color)
+  const dispatch = useDispatch()
+  // console.log(color.background)
+  return (
+    <div style={{backgroundColor:color.background}}>
+      <Countt/>
+      <button onClick={()=>dispatch(setBgColor("blue"))}>Blue</button>
+      <button onClick={()=>dispatch(setBgColor("yellow"))}>Yellow</button>
+      <button onClick={()=>dispatch(setBgColor("purple"))}>Purple</button>
+      <button onClick={()=>dispatch(setBgColor("gray"))}>Gray</button>
+      <button onClick={()=>dispatch(setBgColor("pink"))}>Pink</button>
+      <button onClick={()=>dispatch(setBgColor("Orange"))}>Orange</button>
+      <br /><br />
+      <TodoRedux/>
+    </div>
+  )
+}
+
+
+//thunk 
+
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { incrementStore,decrementStore } from './components/Thunkstore/action'  A       S A    A Q                                                                                                                                                                                              
+export default function App() {
+  const count =                                                                                                                                                                                                                             ((state)=>state)
+  const dispatch = useDispatch()
+  return (
+    <div>
+       <h1>Count: {count}</h1>
+       <button onClick={()=>dispatch(incrementStore(1000))}>+++++</button>
+       <button onClick={()=>dispatch(decrementStore(3000))}>----</button>
+    </div>
+  )
+}
