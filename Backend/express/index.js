@@ -2,7 +2,7 @@ var express = require("express")
 var app = express()
 var userRouter = require("./Routes/userRouter")
 const adminRouter = require("./Routes/adminRouter")
-app.get("/",(req,res)=>{
+app.get("/contact",(req,res)=>{
    res.send("home")
 })
 app.use("/user",userRouter)
