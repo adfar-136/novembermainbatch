@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function Taskform() {
+export default function Taskform({fetchTask}) {
     const [title,setTitle]= useState("")
     const [description,setDescription]= useState("")
     const [dueDate, setDueDate] = useState({})
@@ -18,7 +18,7 @@ export default function Taskform() {
         setTitle("")
         setDueDate({})
         setPriority("")
-
+       fetchTask()
     }
   return (
     <div>

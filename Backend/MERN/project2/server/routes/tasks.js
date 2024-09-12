@@ -21,4 +21,34 @@ router.post("/",async (req,res)=>{
         res.status(400).json({message:error.message})
     }
 })
+router.put("/:id",async (req,res)=>{
+    const  {id} = req.params;
+    const {completed} = req.body;
+    try {
+        const updateTask = await Task.findByIdAndUpdate(
+            id,
+            {completed},
+        )
+        if(!updateTask){
+            return res.status(404).json({message:"Task not found"})
+        }
+        res.status(200).json(updateTask)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+
+})
+router.delete("/:id",async (req,res)=>{
+    const {id} = req.params;
+    try {
+        const deleteTask = await  Task.findByIdAndDelete(id)
+        if(!deleteTask){
+            return res.status(404).json({message:"Task not found"})
+        }
+        res.status(200).json({message:"Task deleted successfully"})
+    } catch (error) {
+        res.status(400).json({message:error.message})
+        
+    }
+})
 module.exports = router

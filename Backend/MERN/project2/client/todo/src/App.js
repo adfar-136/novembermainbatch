@@ -15,8 +15,8 @@ export default function App() {
   }
   return (
     <div>
-      <Taskform/>
-      <TaskList tasks={tasks}/>
+      <Taskform fetchTask={fetchTasks}/>
+      <TaskList tasks={tasks} fetchTask={fetchTasks}/>
     </div>
   )
 }
